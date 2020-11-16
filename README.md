@@ -1,1 +1,1 @@
-Python_Django_examples
+Здесь собраны все учебные проекты по Django.
