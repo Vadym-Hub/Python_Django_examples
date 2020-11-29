@@ -1,0 +1,5 @@
+
+taggit  # Подсистема тегов
+Markdown   # Синтаксис форматирования для тегов
+psycopg2  # Адаптер PostgreSQL (для linux psycopg2-binary)
+python-dotenv  # Виртуальное окружение чтоб спрятать пароли
