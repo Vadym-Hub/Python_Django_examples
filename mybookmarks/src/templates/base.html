@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <!--favicon-->
+  <link rel="icon" href="{% static 'favicon.ico' %}">
+  <!-- CSS -->
+  <link href="{% static 'css/base.css' %}" rel="stylesheet">
+
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+  <div id="header">
+    <span class="logo">BOOKMARKS by Vadym Pashynskyi</span>
+    {% if request.user.is_authenticated %}
+      <ul class="menu">
+        <li {% if section == "dashboard" %} class="selected"{% endif %}>
+          <a href="{% url 'accounts:dashboard' %}">Мой робочий стол</a>
+        </li>
+        <li {% if section == "images" %} class="selected"{% endif %}>
+          <a href="{% url 'images:list' %}">Картинки</a>
+        </li>
+        <li {% if section == "people" %} class="selected"{% endif %}>
+          <a href="{% url 'accounts:user_list' %}">Люди</a>
+        </li>
+      </ul>
+    {% endif %}
+
+    <span class="user">
+      {% if request.user.is_authenticated %}
+        Hello {{ request.user.first_name }},
+        <a href="{% url 'accounts:logout' %}">Выход</a>
+      {% else %}
+        <a href="{% url 'accounts:login' %}">Вход</a>
+      {% endif %}
+    </span>
+  </div>
+
+  <!--Обработчик контекста ошибок-->
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="{{ message.tags }}">
+          {{ message|safe }}
+            <a href="#" class="close">x</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script>
+    var csrftoken = Cookies.get('csrftoken');
+    function csrfSafeMethod(method) {
+      // Для этих методов токен не будет подставляться в заголовок.
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+      }
+    });
+    $(document).ready(function(){
+      {% block domready %}
+      {% endblock %}
+       });
+  </script>
+</body>
+</html>

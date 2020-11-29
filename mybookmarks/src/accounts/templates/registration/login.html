@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+  <h1>Вход</h1>
+  {% if form.errors %}
+    <p>
+      Ваше имя пользователя или пароль не совпадают. Пожалуста, попробуйте ище раз.
+    </p>
+  {% else %}
+    <p>Пожалуста, используйте ету форму для входа. Если у вас нет профиля,
+      <a href="{% url 'accounts:register' %}">зарегестрируйтесь здесь</a>
+    </p>
+  {% endif %}
+  <div class="login-form">
+    <form action="{% url 'login' %}" method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}" />
+      <p><input type="submit" value="Вход"></p>
+    </form>
+    <p><a href="{% url 'accounts:password_reset' %}">Забыли свой пароль?</a></p>
+  </div>
+
+  <div class="social">
+    <ul>
+      <li class="facebook"><a href="{% url 'social:begin' 'facebook' %}">
+        Аутентификация через Facebook</a></li>
+      <li class="google"><a href="{% url 'social:begin' 'google-oauth2' %}">
+        Аутентификация через Google</a></li>
+    </ul>
+  </div>
+{% endblock %}
