@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Поиск{% endblock %}
+
+{% block content %}
+    {% if query %}
+        <h1>Posts containing "{{ query }}"</h1>
+        <h3>
+            {% with results.count as total_results %}
+                Найдено {{ total_results }} результатов {{ total_results|pluralize }}
+            {% endwith %}
+        </h3>
+        {% for article in results %}
+            <h4><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h4>
+            {{ article.text|truncatewords:5 }}
+        {% empty %}
+            <p>По вашему запросу результатов нет.</p>
+        {% endfor %}
+        <p><a href="{% url 'articles:article_search' %}">Вернуться к поиску</a></p>
+    {% else %}
+        <h1>Поиск по статьям</h1>
+        <form action="." method="get">
+            {{ form.as_p }}
+            <input type="submit" value="Поиск">
+        </form>
+    {% endif %}
+{% endblock %}
