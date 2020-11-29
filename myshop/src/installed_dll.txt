@@ -1,0 +1,8 @@
+
+Pillow  # Для фото
+celery  # Lля асинхронщины
+rabbitmq-server  # Брокер для Celery
+flower  #  Мониторинг для Ctlery
+braintree  # Платежная система
+WeasyPrint  # Работает на linux для создания PDF документов
+redis  # Для рекомендаций
