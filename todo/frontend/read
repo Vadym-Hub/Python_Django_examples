@@ -1,0 +1,7 @@
+npx create-react-app frontend  # Создание проекта.
+
+yarn start  # Запуск приложения React.
+
+npm install axios  # Для выполнения HTTP запросов.
+
+npm start  # Запуск приложение React.

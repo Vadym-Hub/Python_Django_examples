@@ -1,0 +1,99 @@
+pipenv install django
+
+pipenv shell
+
+
+
+
+
+pipenv install djangorestframework
+pipenv install django-rest-auth
+pipenv install django-allauth
+
+
+
+# Уровень проекта.
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+    'DEFAULT_AUTHENTICATION_CLASSES': [  # Стандартная аутентификация.
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    ],
+}
+
+
+_______________________________________________________________________________________
+# Права на уровне проекта:
+
+• AllowAny - любой пользователь, прошедший или не прошедший проверку подлинности, имеет полный доступ
+• IsAuthenticated - только авторизованные зарегистрированные пользователи имеют доступ
+• IsAdminUser - только администраторы/суперпользователи имеют доступ
+• IsAuthenticatedOrReadOnly - неавторизованные пользователи могут
+  просматривать любые страницы, но только прошедшие проверку пользователи имеют
+  права на запись, изменение или удаление
+_______________________________________________________________________________________
+
+### СХЕМЫ И ДОКУМЕНТАЦИЯ ###
+
+
+в консоль:
+pipenv install coreapi pyyaml
+
+                                Схемы (Schemas)
+
+В urls.py:
+from rest_framework.schemas import get_schema_view
+
+
+schema_view = get_schema_view(title='Blog API') # new
+
+urlpatterns = [
+    ...
+    path('schema/', schema_view),
+]
+                            Документация (Documentation)
+
+В urls.py:
+from rest_framework.documentation import include_docs_urls
+
+
+urlpatterns = [
+    ...
+    path('docs/', include_docs_urls(title='Blog API')),
+]
+
+                             Django REST Swagger
+
+pipenv install django-rest-swagger
+
+В settings.py:
+INSTALLED_APPS = [
+    ...
+    # 3rd-party apps
+    'rest_framework_swagger',
+]
+
+В urls.py:
+from rest_framework_swagger.views import get_swagger_view
+
+
+API_TITLE = 'Blog API'
+schema_view = get_swagger_view(title=API_TITLE)
+
+urlpatterns = [
+    ...
+    path('swagger-docs/', schema_view),
+]
+
+                     drf_yasg
+
+pipenv install drf_yasg
+
+В settings.py:
+INSTALLED_APPS = [
+    ...
+    # 3rd-party apps
+    'rest_framework_swagger',
+]
