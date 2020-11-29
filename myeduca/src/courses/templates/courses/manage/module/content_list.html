@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load course %}
+
+{% block title %}
+  Модуль {{ module.order|add:1 }}: {{ module.title }}
+{% endblock %}
+
+{% block content %}
+  {% with course=module.course %}
+    <h1>Курс "{{ course.title }}"</h1>
+    <div class="contents">
+      <h3>Модули</h3>
+      <ul id="modules">
+        {% for m in course.modules.all %}
+          <li data-id="{{ m.id }}" {% if m == module %} class="selected"{% endif %}>
+            <a href="{% url 'courses:module_content_list' m.id %}">
+              <span>
+                Модуль <span class="order">{{ m.order|add:1 }}</span>
+              </span>
+              <br>
+              {{ m.title }}
+            </a>
+          </li>
+        {% empty %}
+          <li>Модулей пока нет.</li>
+        {% endfor %}
+      </ul>
+      <p><a href="{% url 'courses:course_module_update' course.id %}">Редактировать модули</a></p>
+    </div>
+    <div class="module">
+      <h2>Модуль {{ module.order|add:1 }}: {{ module.title }}</h2>
+      <h3>Контент модуля:</h3>
+
+      <div id="module-contents">
+        {% for content in module.contents.all %}
+          <div data-id="{{ content.id }}">
+            {% with item=content.item %}
+              <p>{{ item }} ({{ item|model_name }})</p>
+              <a href="{% url 'courses:module_content_update' module.id item|model_name item.id %}">Редактировать</a>
+              <form action="{% url 'courses:module_content_delete' content.id %}" method="post">
+                <input type="submit" value="Удалить">
+                {% csrf_token %}
+              </form>
+            {% endwith %}
+          </div>
+        {% empty %}
+          <p>У етого модуля пока нет контента.</p>
+        {% endfor %}
+      </div>
+      <h3>Add new content:</h3>
+      <ul class="content-types">
+        <li><a href="{% url 'courses:module_content_create' module.id 'text' %}" class="card-link">Текст</a></li>
+        <li><a href="{% url 'courses:module_content_create' module.id 'image' %}" class="card-link">Изображение</a></li>
+        <li><a href="{% url 'courses:module_content_create' module.id 'video' %}" class="card-link">Видео</a></li>
+        <li><a href="{% url 'courses:module_content_create' module.id 'file' %}" class="card-link">Файл</a></li>
+      </ul>
+    </div>
+  {% endwith %}
+{% endblock %}
+
+{% block domready %}
+  $('#modules').sortable({
+      stop: function(event, ui) {
+          modules_order = {};
+          $('#modules').children().each(function(){
+              // Обновляем поле порядкового номера.
+              $(this).find('.order').text($(this).index() + 1);
+              // Связываем порядковый номер с идентификатором объекта.
+              modules_order[$(this).data('id')] = $(this).index();
+          });
+          $.ajax({
+              type: 'POST',
+              url: '{% url "module_order" %}',
+              contentType: 'application/json; charset=utf-8',
+              dataType: 'json',
+                 data: JSON.stringify(modules_order)
+             });
+      }
+  });
+
+  $('#module-contents').sortable({
+      stop: function(event, ui) {
+          contents_order = {};
+          $('#module-contents').children().each(function(){
+              // Связываем порядковый номер с идентификатором объекта.
+              contents_order[$(this).data('id')] = $(this).index();
+          });
+
+          $.ajax({
+              type: 'POST',
+              url: '{% url "content_order" %}',
+              contentType: 'application/json; charset=utf-8',
+              dataType: 'json',
+              data: JSON.stringify(contents_order),
+          });
+      }
+  });
+{% endblock %}

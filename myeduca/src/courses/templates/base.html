@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <!--favicon-->
+  <link rel="icon" href="{% static 'favicon.ico' %}">
+  <!-- CSS -->
+  <link rel="stylesheet" href="{% static 'css/base.css' %} ">
+
+  <title>{% block title %}Educa{% endblock %}</title>
+</head>
+<body>
+  <div id="header">
+    <a href="/" class="logo">MyEduca by Vadym Pashynskyi</a>
+    <ul class="menu">
+      {% if request.user.is_authenticated %}
+        <li><a href="{% url 'accounts:logout' %}">Вийти</a></li>
+      {% else %}
+        <li><a href="{% url 'accounts:login' %}">Авторизироваться</a></li>
+      {% endif %}
+    </ul>
+  </div>
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      {% block domready %}
+      {% endblock %}
+    });
+  </script>
+</body>
+</html>
