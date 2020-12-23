@@ -1,0 +1,24 @@
+{% extends 'travels/_travels_base.html' %}
+
+{% block title %}Сохранение Маршрута{% endblock %}
+
+
+{% block travels_content %}
+<h1 class="display-4">Сохранить маршрут</h1>
+<div class="row mx-auto">
+    <div class="col-md-8">
+        <form action="{% url 'travels:route_save' %}" method="post">
+            {% for field in form %}
+                <div class="fieldWrapper">
+                    {{ field.errors }}
+                    {{ field }}
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary"> Сохранить</button>
+        </form>
+    </div>
+</div>
+{% endblock travels_content %}

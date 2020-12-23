@@ -1,0 +1,11 @@
+{% extends 'travels/_travels_base.html' %}
+
+{% block title %}Удаление Города{% endblock %}
+
+
+{% block travels_content %}
+    <h1 class="display-4">Удалить город {{ object }}</h1>
+
+{% include 'travels/include/_travels_form.html' with button='Удалить' %}
+
+{% endblock travels_content %}

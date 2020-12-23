@@ -1,0 +1,16 @@
+{% extends 'travels/_travels_base.html' %}
+
+{% block title%}Сторінка входу{% endblock%}
+
+
+{% block content%}
+<h1 class="display-4">Зайти в систему</h1>
+<div class="row mx-auto">
+    <div class='col-md-6'>
+        <form action="" method="post"> {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Зайти">
+        </form>
+    </div>
+</div>
+{% endblock%}

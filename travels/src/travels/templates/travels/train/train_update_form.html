@@ -1,0 +1,11 @@
+{% extends 'travels/_travels_base.html' %}
+
+{% block title %}Редактирование Поезда{% endblock %}
+
+
+{% block travels_content %}
+<h1 class="display-4">Редактировать поезд</h1>
+
+{% include 'travels/include/_travels_form.html' with button='Сохранить' %}
+
+{% endblock travels_content %}

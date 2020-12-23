@@ -1,0 +1,11 @@
+{% extends 'travels/_travels_base.html' %}
+
+{% block title %}Редактирование Города{% endblock %}
+
+
+{% block travels_content %}
+<h1 class="display-4">Редактировать город</h1>
+
+{% include 'travels/include/_travels_form.html' with button='Редактировать' %}
+
+{% endblock travels_content %}

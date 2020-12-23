@@ -1,0 +1,10 @@
+{% extends 'travels/_travels_base.html' %}
+
+{% block title%}Реєстрація користувача{% endblock%}
+
+
+{% block content %}
+    <h1>Вітаємо Вас, {{ new_user.username }}!</h1>
+        <p>Вы зареєструвались в системі.
+        Тепер Ви можете <a href="{% url 'accounts:login' %}">Зайти</a>.</p>
+{% endblock %}

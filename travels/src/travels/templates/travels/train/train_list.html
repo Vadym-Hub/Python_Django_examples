@@ -1,0 +1,47 @@
+{% extends 'travels/_travels_base.html' %}
+
+{% block title %}Список Поездов{% endblock title %}
+
+
+{% block travels_content %}
+<h1 class="display-4 text-center my-4">Поезда</h1>
+<div class="row ">
+<div class='col-md-6 mx-auto'>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th> Номер поезда</th>
+            <th> откуда</th>
+            <th> Куда</th>
+            <th> Время в пути</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for train in train_list %}
+        <tr>
+            <td>{{train.name}}</td>
+            <td>{{train.from_city}}</td>
+            <td>{{train.to_city}}</td>
+            <td>{{train.travel_time}}</td>
+            <td></td>
+            <td> {% if user.is_authenticated %}
+                <a href="{% url 'travels:train_update' pk=object.pk%}">
+                    <button type="button" class="btn btn-primary btn-sm">Редактировать</button></a>
+                {% endif %}</td>
+            <td> {% if user.is_authenticated %}
+                <a href="{% url 'travels:train_delete' pk=object.pk%}">
+                    <button type="button" class="btn btn-danger btn-sm">Удалить</button></a>
+                {% endif %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+
+{% include 'travels/include/_travels_paginate.html' %}
+
+{% endblock travels_content %}

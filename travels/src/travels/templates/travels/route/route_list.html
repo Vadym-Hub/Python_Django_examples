@@ -1,0 +1,37 @@
+{% extends 'travels/_travels_base.html' %}
+
+{% block title %}Список Маршрутов{% endblock title %}
+
+
+{% block travels_content %}
+<h1 class="display-4 text-center my-4">Маршруты</h1>
+<div class="row ">
+    <div class='col-md-8 mx-auto'>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th> Название маршрута </th>
+                <th> Откуда</th>
+                <th> Куда</th>
+                <th> Время в пути</th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for route in route_list%}
+                <tr>
+                    <td> <a href="{% url 'travels:route_detail' pk=object.pk%}">{{route.name}} </a> </td>
+                    <td>{{route.from_city}}</td>
+                    <td>{{route.to_city}}</td>
+                    <td>{{route.travel_times}}</td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% include 'travels/include/_travels_paginate.html' %}
+
+{% endblock travels_content %}
