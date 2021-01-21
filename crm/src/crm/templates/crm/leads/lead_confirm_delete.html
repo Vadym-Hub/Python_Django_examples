@@ -1,0 +1,18 @@
+{% extends 'crm/_crm_base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block crm_content %}
+<div class="container col-8">
+    <h1 class="text-center">Вы уверенны, что хотите удалить лида?</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <hr>
+        <div class="container d-grid gap-2">
+          <button type='submit' class="btn btn-primary">Удалить</button>
+        </div>
+        <hr>
+    </form>
+</div>
+{% endblock crm_content %}

@@ -1,0 +1,41 @@
+{% extends 'crm/_crm_base.html' %}
+
+
+{% block crm_content %}
+<div class="container col-5">
+    <h1 class="text-center">Статистика</h1>
+
+    <div class="container py-2 shadow overflow-auto">
+         <table class="table table-striped text-center">
+            <thead>
+                <tr>
+                    <th>Статус</th>
+                    <th>Количество лидов</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="px-4 py-3">Новый</td>
+                <td class="px-4 py-3">{{ new_lead_count }}</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3">Связались</td>
+                <td class="px-4 py-3">{{ contacted_lead_count }}</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3">Согласен</td>
+                <td class="px-4 py-3">{{ converted_lead_count }}</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3">Отказано</td>
+                <td class="px-4 py-3">{{ converted_lead_count }}</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3">В обшем</td>
+                <td class="px-4 py-3">{{ lead_count }}</td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock crm_content %}

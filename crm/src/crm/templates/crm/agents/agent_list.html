@@ -1,0 +1,39 @@
+{% extends 'crm/_crm_base.html' %}
+
+
+{% block crm_content %}
+<div class="container">
+    <h1 class="text-center">Агенты по продажам</h1>
+
+    <div class="d-grid gap-2 d-md-block">
+        <a class="btn btn-primary" href="{% url 'crm:agent-create' %}" role="button">Создать нового агента</a>
+    </div>
+
+    <div class="container py-2 shadow overflow-auto">
+         <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Имя/Фамилия</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agent in object_list %}
+                <tr>
+                    <td>{{ agent.user.first_name }} {{ agent.user.last_name }}</td>
+                    <td>{{ agent.user.email }}</td>
+                    <td><a href="{% url 'crm:agent-detail' agent.pk %}">
+                        <button type="button" class="btn btn-danger btn-sm">Профиль</button></a>
+                    </td>
+                </tr>
+                {% empty %}
+
+                  <p>На данный момент у вас нет агентов</p>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock crm_content %}

@@ -1,0 +1,37 @@
+{% extends 'crm/_crm_base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block crm_content %}
+<div class="container px-5 py-24 mx-auto">
+    <div class="w-full mb-6 lg:mb-0">
+        <h1 class="text-center"> АГЕНТ: {{ agent.user.first_name }} {{ agent.user.last_name }}</h1>
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="true" href="{% url 'crm:agent-detail' agent.pk %}">профиль агента</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'crm:agent-update' agent.pk %}" tabindex="-1" aria-disabled="true">Редактировать профиль агента</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <div class="container">
+                <hr>
+                <button type="submit" class="btn btn-primary">Редактировать</button>
+              </div>
+            </form>
+            <hr>
+            <div class="container">
+              <a href="{% url 'crm:agent-delete' agent.pk %}" class="btn btn-primary">Удалить</a>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock crm_content %}

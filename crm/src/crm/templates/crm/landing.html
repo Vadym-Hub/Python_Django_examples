@@ -1,0 +1,27 @@
+{% extends 'crm/_crm_base.html' %}
+{% load static %}
+
+
+{% block crm_content %}
+<div class="row">
+  <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+    <img class="img-fluid" alt="hero" src="{% static 'images/dashboard.svg' %}">
+    <div class="text-center">
+      <h1>
+          (CRM) Система управления взаимоотношениями с клиентами
+      </h1>
+      <p class="mb-8 leading-relaxed">
+          Ета CRM поможет вам управлять вашими лидами.
+      </p>
+      <div class="text-center">
+        <a href="{% url 'login' %}" class="btn btn-primary">
+          Авторизируйтесь чтобы начать
+        </a>
+        <p>Если у вас нет организации,
+          <a href="{% url 'organisation-create' %}">зарегестрируйте организацию</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock crm_content %}

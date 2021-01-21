@@ -1,0 +1,18 @@
+{% extends 'crm/_crm_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block crm_content %}
+
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title text-center">Создайте аккаунт</h1>
+
+        <form action="." method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button  type="submit"  class="btn btn-primary btn-block">Создать аккаунт</button>
+        </form>
+        <p><a href="{% url 'login' %}">Уже есть аккаунт?</a></p>
+    </div>
+</div>
+{% endblock crm_content %}

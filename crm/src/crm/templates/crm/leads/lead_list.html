@@ -1,0 +1,76 @@
+{% extends 'crm/_crm_base.html' %}
+
+
+{% block crm_content %}
+<div class="container">
+    <h1 class="text-center">Лиды</h1>
+
+    <div class="d-grid gap-2 d-md-block">
+        {% if request.user.is_organisor %}
+        <a class="btn btn-primary" href="{% url 'crm:status-list' %}" role="button">Просмотреть статусы</a>
+        <a class="btn btn-primary" href="{% url 'crm:lead-create' %}" role="button">Создать нового лида</a>
+        {% endif %}
+    </div>
+
+    <div class="container py-2 shadow overflow-auto">
+         <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Возраст</th>
+                    <th>Email</th>
+                    <th>Телефонный номер</th>
+                    <th>Статус обработки</th>
+                    <th>Агент</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lead in leads %}
+                <tr>
+                    <td>{{ lead.first_name }}</td>
+                    <td>{{ lead.last_name }}</td>
+                    <td>{{ lead.age }}</td>
+                    <td>{{ lead.email }}</td>
+                    <td>{{ lead.phone_number }}</td>
+                    <td><a>{{ lead.status }}</a>
+
+                    </td>
+                    <td>{{ lead.agent }}</td>
+                    <td><a href="{% url 'crm:lead-detail' lead.pk %}">
+                        <button type="button" class="btn btn-danger btn-sm">Профиль</button></a>
+                    </td>
+                </tr>
+                {% empty %}
+
+                  <p>На данный момент у вас нет лидов</p>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+  {% if unassigned_leads.exists %}
+    <div class="mt-5 flex flex-wrap -m-4 py-2 ">
+      <div class="p-4 w-full">
+        <h1>Нераспределенные лиды</h1>
+      </div>
+
+      <div class="row p-4">
+        {% for lead in unassigned_leads %}
+        <div class="col-sm-4">
+          <div class="card shadow">
+            <div class="card-body">
+              <h5 class="card-title">{{ lead.first_name }} {{ lead.last_name }}</h5>
+              <p class="card-text">{{ lead.description }}.</p>
+              <a href="{% url 'crm:assign-agent' lead.pk %}" class="btn btn-primary">Назначить агента</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% endblock crm_content %}

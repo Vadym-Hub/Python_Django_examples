@@ -1,0 +1,22 @@
+{% extends 'crm/_crm_base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block crm_content %}
+<div class="container col-8">
+  <div class="row">
+    <div>
+        <h1 class="text-center">Выбрать агента для лида</h1>
+    </div>
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <hr>
+      <div class="container d-grid gap-2">
+         <button type='submit' class="btn btn-primary">Выбрать</button>
+      </div>
+      <hr>
+    </form>
+  </div>
+</div>
+{% endblock crm_content %}

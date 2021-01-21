@@ -1,0 +1,35 @@
+{% extends 'crm/_crm_base.html' %}
+
+
+{% block crm_content %}
+<div class="container px-5 py-24 mx-auto">
+    <div class="w-full mb-6 lg:mb-0">
+        <h1 class="text-center">Агент по продажам</h1>
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="true" href="{% url 'crm:agent-detail' agent.pk %}">профиль агента</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'crm:agent-update' agent.pk %}" tabindex="-1" aria-disabled="true">Редактировать профиль лида</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <div>
+                <span>Полное имя: </span>
+                <span class="ml-auto ">{{ agent.user.first_name }} {{ agent.user.last_name }}</span>
+            </div>
+             <hr>
+            <div>
+                <span>Email: </span>
+                <span class="ml-auto">{{ agent.user.email }}</span>
+            </div>
+            <hr>
+            <hr>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock crm_content %}
