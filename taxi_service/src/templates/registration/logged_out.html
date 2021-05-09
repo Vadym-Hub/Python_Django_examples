@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Выход{% endblock %}
+
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title text-center">Вы удачно вышли из аккаунта!</h1>
+        <a  class="btn btn-outline-primary" href="{% url 'dispatchers:login' %}">Авторизируйтесь опять</a>
+        <a class="btn btn-outline-primary" href="{% url 'orders:order_create' %}">На главную</a>
+    </div>
+</div>
+{% endblock %}

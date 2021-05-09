@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Авторизация{% endblock title %}
+
+
+{% block content %}
+
+  {% if form.errors %}
+    <p>
+      Ваше имя пользователя или пароль не совпадают. Пожалуста, попробуйте ище раз.
+    </p>
+  {% else %}
+    <p>Пожалуста, используйте ету форму для входа. Если у вас нет профиля,
+      <a href="{% url 'dispatchers:signup' %}">зарегестрируйтесь здесь</a>
+    </p>
+  {% endif %}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Войдите в свою учетную запись.</h4>
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+
+            {{ form|crispy }}
+
+            <button type="submit" class="btn btn-primary btn-block">Вход</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

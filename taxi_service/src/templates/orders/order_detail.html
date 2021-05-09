@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Детали{% endblock title %}
+
+
+{% block content %}
+<h1 class="display-4 text-center my-4">Информация о заказе</h1>
+
+<div class="row ">
+    <div class='col-md-8 mx-auto'>
+<table class="table table-striped">
+        <tr>
+            <th> № заказа: </th>
+            <th> {{object.id}} </th>
+        </tr>
+        <tr>
+            <th> Имя заказчика: </th>
+            <th> {{object.name}} </th>
+        </tr>
+        <tr>
+            <th> Телефон: </th>
+            <th> {{object.phone}} </th>
+        </tr>
+        <tr>
+            <th> Адрес заказа: </th>
+            <th> {{object.address_from}} </th>
+        </tr>
+        <tr>
+            <th> Адрес следования: </th>
+            <th> {{object.destination}} </th>
+        </tr>
+        <tr>
+            <th> Желаемое время подачи: </th>
+            <th> {{object.desired_time}} </th>
+        </tr>
+        <tr>
+            <th> Время оформления заказа: </th>
+            <th> {{object.created}} </th>
+        </tr>
+        <tr>
+            <th> Назначенная машина: </th>
+            <th> {{object.car}} </th>
+        </tr>
+</table>
+</div>
+</div>
+{% endblock content %}
